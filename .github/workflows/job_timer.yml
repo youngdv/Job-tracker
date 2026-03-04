@@ -1,8 +1,10 @@
 name: Hourly Job Check
 on:
   schedule:
-    - cron: "0 * * * *" # This runs at the top of every hour
-  workflow_dispatch: # This adds a "Run" button so you can test it manually
+    - cron: "0 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
 
 jobs:
   scrape_and_notify:
@@ -21,13 +23,13 @@ jobs:
 
       - name: Run Job Scraper
         env:
-          # This pulls your Slack URL from the "Secrets" you set up earlier
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: python job_notifier.py
+
       - name: Save Website to Repo
         run: |
-          git config --global user.name "GitHub Action"
-          git config --global user.email "action@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           git commit -m "Update job board" || exit 0
           git push
