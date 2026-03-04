@@ -16,7 +16,8 @@ def send_slack_notification(job_title, company, job_url):
 
 def check_for_jobs():
     # Searching for your specific niche to avoid high competition
-    search_term = '("UX Designer" OR "Human Factors") AND (Accessibility OR 508 OR WCAG)'
+    search_term = '("UX Designer" OR "Product Designer" OR "Human Factors") AND (Accessibility OR 508 OR WCAG) -Poly -Polygraph -TS/SCI -Clearance -Security'
+
     
     print(f"Searching for: {search_term}...")
     
