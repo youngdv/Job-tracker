@@ -24,3 +24,10 @@ jobs:
           # This pulls your Slack URL from the "Secrets" you set up earlier
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: python job_notifier.py
+      - name: Save Website to Repo
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add index.html
+          git commit -m "Update job board" || exit 0
+          git push
